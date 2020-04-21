@@ -26,9 +26,8 @@ VPN_IP=`curl ipv4.icanhazip.com`
 VPN_USER="linuxeye"
 VPN_PASS="linuxeye"
 
-VPN_LOCAL="192.168.254.1"
-VPN_REMOTE="192.168.254.2-209"
-
+VPN_LOCAL="192.168.100.1"
+VPN_REMOTE="192.168.100.50-250"
 
 while :; do echo
     read -p "Please input username: " VPN_USER 
@@ -84,9 +83,9 @@ sysctl -p /etc/sysctl.conf
 
 if [ -z "`grep '^ms-dns' /etc/ppp/options.pptpd`" ];then
      cat >> /etc/ppp/options.pptpd << EOF
-ms-dns 1.1.1.1 
+ms-dns 1.1.1.1
 #ms-dns 1.0.0.1
-#ms-dns 8.8.8.8 # Google DNS Primary
+ms-dns 8.8.8.8 # Google DNS Primary
 #ms-dns 8.8.4.4
 ms-dns 114.114.114.114
 #ms-dns 119.29.29.29
