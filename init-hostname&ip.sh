@@ -41,14 +41,12 @@ yum -y install net-tools tree lrzsz unzip telnet vim gcc cmake wget git ntpdate 
     fi
 fi
 
-#主机名设置
 function Sethostname {
     read -p "请输入主机名：" DEFINDHOST
     # 设置机器名
     hostnamectl set-hostname $DEFINDHOST
     echo -n "主机名为："  && hostname
 }
-#ip设置
 function Setip {
         ifs=(`ifconfig | grep "^e" | awk -F: '{print $1}'`)
         for i in `echo ${ifs[@]}`;do
