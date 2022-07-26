@@ -69,7 +69,6 @@ function Setip {
 echo "1.设置hostname主机名"
 echo "2.设置ip"
 Sethostname
-bash
 read -p "是否继续？(y/n):" ANSWER
     if [ $ANSWER == "y" ];then
         Setip
