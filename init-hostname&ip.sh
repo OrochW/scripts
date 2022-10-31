@@ -55,10 +55,10 @@ function Setip {
     read -p "请输入要定义的ip：" DEFINDIP
     sed -i "s/dhcp/static/g" /etc/sysconfig/network-scripts/ifcfg-ens$DEFINDENS
     sed -i "s/ONBOOT=no/ONBOOT=yes/g" /etc/sysconfig/network-scripts/ifcfg-ens$DEFINDENS
-    echo "BOARDCAST=192.168.0.255
+    echo "BOARDCAST=192.168.234.255
 IPADDR=192.168.234.$DEFINDIP
 NETMASK=255.255.255.0
-GATEWAY=192.168.0.1" >> /etc/sysconfig/network-scripts/ifcfg-ens$DEFINDENS
+GATEWAY=192.168.234.1" >> /etc/sysconfig/network-scripts/ifcfg-ens$DEFINDENS
     # 重启网络服务
     systemctl restart network
     echo 'nameserver $DEFINDIP' >> /etc/resolv.conf
