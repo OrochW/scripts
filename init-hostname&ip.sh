@@ -46,24 +46,23 @@ function Sethostname {
     echo -n "主机名为："  && hostname
 }
 function Setip {
-        ifs=(`ifconfig | grep "^e" | awk -F: '{print $1}'`)
-        for i in `echo ${ifs[@]}`;do
-            echo -e "${i}\t`ifconfig ${i} | awk 'NR==2{print $2}'`"
-        done
-    read -p "请输入要定义的网卡(输入ens后面的即可)：" DEFINDENS
-    # 设置静态 IP，网络请根据自己的网卡来配置,ip addr 或 ifconfig 查看，笔者这里是ens33
-    read -p "请输入要定义的ip：" DEFINDIP
-    sed -i "s/dhcp/static/g" /etc/sysconfig/network-scripts/ifcfg-ens$DEFINDENS
-    sed -i "s/ONBOOT=no/ONBOOT=yes/g" /etc/sysconfig/network-scripts/ifcfg-ens$DEFINDENS
-    echo "BOARDCAST=192.168.234.255
+ifs=(`ifconfig | grep "^e" | awk -F: '{print $1}'`)
+    for i in `echo ${ifs[@]}`;do
+        echo -e "${i}\t`ifconfig ${i} | awk 'NR==2{print $2}'`"
+    done
+read -p "请输入要定义的网卡(输入ens后面的即可)：" DEFINDENS
+# 设置静态 IP，网络请根据自己的网卡来配置,ip addr 或 ifconfig 查看，笔者这里是ens33
+read -p "请输入要定义的ip：" DEFINDIP
+sed -i "s/dhcp/static/g" /etc/sysconfig/network-scripts/ifcfg-ens$DEFINDENS
+sed -i "s/ONBOOT=no/ONBOOT=yes/g" /etc/sysconfig/network-scripts/ifcfg-ens$DEFINDENS
+echo "BOARDCAST=192.168.234.255
 IPADDR=192.168.234.$DEFINDIP
 NETMASK=255.255.255.0
 GATEWAY=192.168.234.1" >> /etc/sysconfig/network-scripts/ifcfg-ens$DEFINDENS
-    # 重启网络服务
-    systemctl restart network
-    echo 'nameserver $DEFINDIP' >> /etc/resolv.conf
-    echo "ip已生效"
+# 重启网络服务
+systemctl restart network
+echo 'nameserver $DEFINDIP' >> /etc/resolv.conf
+echo "ip已生效"
 }
 Sethostname
 Setip
-
