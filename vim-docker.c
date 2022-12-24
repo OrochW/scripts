@@ -12,6 +12,6 @@ func AddTitleForShell()
     call append(9,  "VERSION=")
     call append(10, "TAG=`date +"%Y%m%d_%H%M%S"`")
     call append(11, "HARBOR=192.168.234.51/$ITEM")
-    call append(12, "docker build -t $HARBOR/$APP$VERSION: .")
-    call append(13, "docker push  $HARBOR/$APP$VERSION:")
+    call append(12, "docker build -t $HARBOR/$APP$VERSION:$TAG .")
+    call append(13, "docker push  $HARBOR/$APP$VERSION:$TAG")
 endfunc
