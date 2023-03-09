@@ -66,3 +66,6 @@ echo $temporarypassword
 #use mysql;
 #update user set Host='%' where User='root';
 #flush privileges;
+#关闭安全启动的mysql
+#./bin/mysqladmin -u root -p shutdown
+
