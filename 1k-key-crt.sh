@@ -78,6 +78,6 @@ openssl genrsa -out server.key 2048
 openssl req -new -subj "/C=CN/ST=BeiJing/L=BeiJing/O=pskzs/CN=${DOMAIN}" -sha256 -out server.csr -key server.key -config ${DOMAIN}/server.conf
 
 ## 用CA证书生成终端用户证书，得到server.crt
-openssl x509 -req -days 3650 -CA ca.crt -CAkey ca.key -CAcreateserial -in server.csr -out server.crt -extensions req_ext -extfile ${DOMAIN}/server.conf
+openssl x509 -req -days 36500 -CA ca.crt -CAkey ca.key -CAcreateserial -in server.csr -out server.crt -extensions req_ext -extfile ${DOMAIN}/server.conf
 echo "key:server.key"
 echo "crt:server.crt"
