@@ -16,7 +16,7 @@ fi
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   # 安装 Oh My Zsh 并自动接受所有默认选项
   echo "Oh My Zsh 未安装，正在安装 Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/oh-my-zsh/master/tools/install.sh)" "" --unattended
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 else
   echo "Oh My Zsh 已安装，准备重新配置插件。"
   # 删除现有的插件目录
@@ -43,8 +43,14 @@ curl -o ${ZSH_CUSTOM}/plugins/incr/incr.zsh https://mimosa-pudica.net/src/incr-0
 # 更新 .zshrc 文件中的插件配置
 echo "正在更新 .zshrc 文件..."
 
-# 清空并重新添加插件到 .zshrc 文件
-sed -i '/plugins=/c\plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-completions)' "$HOME/.zshrc"
+# 确保 plugins 行存在并更新
+if grep -q '^plugins=' "$HOME/.zshrc"; then
+  # 如果 plugins 行已存在，更新它
+  sed -i '/^plugins=/c\plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-completions)' "$HOME/.zshrc"
+else
+  # 如果 plugins 行不存在，添加它
+  echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-completions)' >> "$HOME/.zshrc"
+fi
 
 # 添加 incr 插件的源码引用到 .zshrc 文件
 grep -q "source \$ZSH_CUSTOM/plugins/incr/incr.zsh" "$HOME/.zshrc" || echo 'source $ZSH_CUSTOM/plugins/incr/incr.zsh' >> "$HOME/.zshrc"
@@ -52,4 +58,4 @@ grep -q "source \$ZSH_CUSTOM/plugins/incr/incr.zsh" "$HOME/.zshrc" || echo 'sour
 # 更改默认 shell 到 Zsh（可选）
 chsh -s $(which zsh)
 
-echo "安装和配置完成，请重新打开终端或运行 'source ~/.zshrc' 来应用更改。"
+echo "安装和配置完成，请重新打开终端或来应用更改。"
